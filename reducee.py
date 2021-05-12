@@ -1,7 +1,7 @@
 ENCODING = "utf-8"
 
 
-def reduce(red_index, n):
+def reducee(red_index, n):
     freq_ = {}
     for map_index in range(n):
 
@@ -9,6 +9,8 @@ def reduce(red_index, n):
             f = open(
                 f"intermediate-files/mr-{map_index}-{red_index}", "r", encoding=ENCODING)
         except:
+            print(
+                f'intermediate-files/mr-{map_index}-{red_index} does not exist')
             continue
 
         line_num = 0

@@ -1,4 +1,4 @@
-from reduce import reduce
+from reducee import reducee
 from mapp import word_counter
 from threading import Thread as thread
 from pathlib import Path
@@ -13,6 +13,7 @@ thread_ = {}
 # NOTE: work stores the indexed inputs
 work = {}
 map_thread_pool = []
+reduce_thread_pool = []
 
 # NOTE: INDEX ALL INPUTS
 input_location = Path('inputs/')
@@ -46,7 +47,10 @@ for thrd in thread_:
     map_thread_pool.append(thread(target=word_counter, args=[
         thrd, thread_[thrd], work, m]))
 
-# Start all threads
+for red_index in range(m):
+    reduce_thread_pool.append(thread(target=reducee, args=[red_index, n]))
+
+# Start all map threads
 for thread in map_thread_pool:
     thread.start()
 
@@ -54,5 +58,6 @@ for thread in map_thread_pool:
 for thread in map_thread_pool:
     thread.join()
 
-for red_index in range(m):
-    thread(target=reduce, args=[red_index, n]).start()
+# Start all reduce threads
+for thread in reduce_thread_pool:
+    thread.start()
